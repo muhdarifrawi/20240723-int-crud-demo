@@ -21,12 +21,15 @@ let todos = [
 
 
 function showAllTask(){
+    let list = document.querySelector("#list");
+    list.innerHTML = "";
     // if array is not empty
     if(todos.length !== 0){
         for(i=0;i<todos.length;i++){
-            console.log(todos[i])
-            let list = document.querySelector("#list");
-            list.innerHTML+=`<li>${todos[i].name}</li>`
+            console.log(todos[i]);
+            list.innerHTML+=`<li class="list-group-item">ID:${todos[i].id} Task name: ${todos[i].name}
+                                <span class="badge text-bg-danger rounded-pill">${todos[i].urgency}</span>
+                            </li>`
         }
     }
     else{
@@ -34,21 +37,26 @@ function showAllTask(){
     }
 }
 
-// showAllTask();
+showAllTask();
 
 function addTaskInterface(){
-    let nameInput = prompt("Enter task here: ");
-    let urgencyInput = prompt("Enter urgency here (1-5): ");
-    addTaskModel(nameInput,urgencyInput);
+    // DOM
+    // let taskInput = prompt("Enter task here: ");
+    // let urgencyInput = prompt("Enter urgency here (1-5): ");
+    let taskInput = document.querySelector("#taskName").value;
+    let urgencyInput = document.querySelector("#urgency").value;
+    addTaskModel(taskInput,urgencyInput);
 }
 
 // addTaskInterface();
 
+// event listener here
+document.querySelector("#submit").addEventListener("click", addTaskInterface);
 
-function addTaskModel(nameInput, urgencyInput){
+function addTaskModel(taskInput, urgencyInput){
     let userTodos = {
         "id":Math.floor(Math.random() * 99),
-        "name": nameInput,
+        "name": taskInput,
         "urgency": urgencyInput
     }
 
@@ -91,4 +99,4 @@ function modifyTaskModel(modifyId, newName, newUrgency){
     showAllTask();
 }
 
-modifyTaskInterface();
+// modifyTaskInterface();
